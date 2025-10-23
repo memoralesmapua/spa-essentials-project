@@ -8,9 +8,10 @@ import com.morales.ecommerce.dtos.UserDto;
 import com.morales.ecommerce.entities.User;
 import com.morales.ecommerce.repositories.UserRepository;
 import com.morales.ecommerce.services.auth.AuthService;
-import com.morales.ecommerce.services.auth.jwt.UserDetailServiceImpl;
+import com.morales.ecommerce.services.jwt.UserService;
 import com.morales.ecommerce.util.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -25,25 +26,18 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/auth")
+@RequiredArgsConstructor
 public class AuthController {
 
     private final AuthService authService;
 
     private final AuthenticationManager authenticationManager;
 
-    private final UserDetailServiceImpl userDetailService;
+    private final UserService userService;
 
     private final JwtUtil jwtUtil;
 
     private final UserRepository userRepository;
-
-    private AuthController(AuthService authService, AuthenticationManager authenticationManager, UserDetailServiceImpl userDetailService, JwtUtil jwtUtil, UserRepository userRepository){
-        this.authService = authService;
-        this.authenticationManager = authenticationManager;
-        this.userDetailService = userDetailService;
-        this.jwtUtil = jwtUtil;
-        this.userRepository = userRepository;
-    }
 
     @PostMapping("/signup")
     public ResponseEntity<?> signupUser(@RequestBody SignupRequest signupRequest){
@@ -67,8 +61,8 @@ public class AuthController {
             return null;
         }
 
-        final UserDetails userDetails = userDetailService.loadUserByUsername(authenticationRequest.getEmail());
-        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
+        final UserDetails userDetails = userService.UserDetailsService().loadUserByUsername(authenticationRequest.getEmail());
+        final String jwt = jwtUtil.generateToken(userDetails);
         Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
         if(optionalUser.isPresent()){
