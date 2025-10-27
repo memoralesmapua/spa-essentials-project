@@ -1,6 +1,7 @@
 package com.morales.ecommerce.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.morales.ecommerce.dtos.ProductDto;
 import com.morales.ecommerce.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -30,5 +31,18 @@ public class Product {
     @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Category category;
+
+    public ProductDto getProductDto(){
+        ProductDto productDto = new ProductDto();
+        productDto.setId(id);
+        productDto.setName(name);
+        productDto.setPrice(price);
+        productDto.setDescription(description);
+        productDto.setReturnedImg(img);
+        productDto.setCategoryId(category.getId());
+        productDto.setCategoryName(category.getName());
+        return productDto;
+
+    }
 
 }

@@ -9,13 +9,15 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { PostProductComponent } from './admin-components/post-product/post-product.component';
 import { NzResizeObserverModule } from "ng-zorro-antd/cdk/resize-observer";
+import { ViewProductsComponent } from './admin-components/view-products/view-products.component';
 
 
 @NgModule({
   declarations: [
     DashboardComponent,
     AddCategoryComponent,
-    PostProductComponent
+    PostProductComponent,
+    ViewProductsComponent
   ],
   imports: [
     CommonModule,

@@ -41,6 +41,13 @@ export class AdminService {
         headers:this.createAuthorizationHeader()
     })
   }
+
+  getProductsByCategory(categoryId: number):Observable<any>{
+    return this.http.get<[]>(BASIC_URL + `api/admin/categories/${categoryId}/products`,
+      {
+        headers:this.createAuthorizationHeader()
+    })
+  }
   
 
   createAuthorizationHeader():HttpHeaders{
