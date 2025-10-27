@@ -2,9 +2,11 @@ package com.morales.ecommerce.controllers;
 
 
 import com.morales.ecommerce.dtos.CategoryDto;
+import com.morales.ecommerce.dtos.ProductDto;
 import com.morales.ecommerce.services.admin.AdminService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -39,6 +41,17 @@ public class AdminController {
         List<CategoryDto> categoryDtoList = adminService.getAllCategoriesByTitle(title);
         if (categoryDtoList == null) return ResponseEntity.notFound().build();
         return ResponseEntity.ok(categoryDtoList);
+    }
+
+    // Product Operations
+
+    @PostMapping("/{categoryId}/product")
+    public ResponseEntity<?> postProduct (@PathVariable Long categoryId, @ModelAttribute ProductDto productDto) throws IOException {
+
+        ProductDto createdProductDto = adminService.postProduct(categoryId, productDto);
+        if (createdProductDto == null) return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Something went wrong");
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdProductDto);
+
     }
 
 }

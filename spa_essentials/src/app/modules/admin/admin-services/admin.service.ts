@@ -32,6 +32,15 @@ export class AdminService {
         headers:this.createAuthorizationHeader()
     })
   }
+
+  // Product Operations
+
+  postProduct(categoryId: number, productDto: any):Observable<any>{
+    return this.http.post<[]>(BASIC_URL + `api/admin/${categoryId}/product`, productDto,
+      {
+        headers:this.createAuthorizationHeader()
+    })
+  }
   
 
   createAuthorizationHeader():HttpHeaders{
