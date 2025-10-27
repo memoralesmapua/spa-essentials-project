@@ -8,7 +8,7 @@ import com.morales.ecommerce.dtos.UserDto;
 import com.morales.ecommerce.entities.User;
 import com.morales.ecommerce.repositories.UserRepository;
 import com.morales.ecommerce.services.auth.AuthService;
-import com.morales.ecommerce.services.jwt.UserService;
+import com.morales.ecommerce.services.jwt.UserServiceImpl;
 import com.morales.ecommerce.util.JwtUtil;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +33,7 @@ public class AuthController {
 
     private final AuthenticationManager authenticationManager;
 
-    private final UserService userService;
+    private final UserServiceImpl userService;
 
     private final JwtUtil jwtUtil;
 
@@ -61,7 +61,7 @@ public class AuthController {
             return null;
         }
 
-        final UserDetails userDetails = userService.userDetailsService().loadUserByUsername(authenticationRequest.getEmail());
+        final UserDetails userDetails = userService.loadUserByUsername(authenticationRequest.getEmail());
         final String jwt = jwtUtil.generateToken(userDetails);
         Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
