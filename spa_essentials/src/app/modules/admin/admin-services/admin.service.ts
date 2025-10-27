@@ -26,6 +26,14 @@ export class AdminService {
     })
   }
 
+    getAllCategoriesByTitle(title: string):Observable<any>{
+    return this.http.get<[]>(BASIC_URL + `api/admin/categories/${title}`,
+      {
+        headers:this.createAuthorizationHeader()
+    })
+  }
+  
+
   createAuthorizationHeader():HttpHeaders{
     let authHeaders:HttpHeaders = new HttpHeaders();
     return authHeaders.set(
