@@ -61,7 +61,7 @@ public class AuthController {
             return null;
         }
 
-        final UserDetails userDetails = userService.UserDetailsService().loadUserByUsername(authenticationRequest.getEmail());
+        final UserDetails userDetails = userService.userDetailsService().loadUserByUsername(authenticationRequest.getEmail());
         final String jwt = jwtUtil.generateToken(userDetails);
         Optional<User> optionalUser = userRepository.findFirstByEmail(userDetails.getUsername());
         AuthenticationResponse authenticationResponse = new AuthenticationResponse();
