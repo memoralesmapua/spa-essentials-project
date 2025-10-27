@@ -8,18 +8,6 @@ import { AdminService } from '../../admin-services/admin.service';
 })
 export class PostProductComponent {
 
-  constructor(
-    private service: AdminService,
-  ) { }
 
-  ngOnInit(){
-    this.getAllCategories();
-  }
-
-  getAllCategories(){
-    this.service.getAllCategories().subscribe((res)=>{
-      console.log(res);
-    })
-  }
 
 }

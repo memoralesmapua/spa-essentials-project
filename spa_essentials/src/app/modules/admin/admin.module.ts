@@ -8,6 +8,7 @@ import { DemoNgZorroAntdModule } from "src/app/DemoNgZorroAntdModule";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HttpClientModule } from '@angular/common/http';
 import { PostProductComponent } from './admin-components/post-product/post-product.component';
+import { NzResizeObserverModule } from "ng-zorro-antd/cdk/resize-observer";
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { PostProductComponent } from './admin-components/post-product/post-produ
     DemoNgZorroAntdModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NzResizeObserverModule
 ]
 })
 export class AdminModule { }
