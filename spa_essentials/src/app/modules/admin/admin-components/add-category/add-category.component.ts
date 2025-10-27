@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from '../../admin-services/admin.service';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-add-category',
@@ -15,7 +16,8 @@ export class AddCategoryComponent {
 
   constructor(
     private service:AdminService,
-    private fb:FormBuilder
+    private fb:FormBuilder,
+    private message:NzMessageService
   ) { }
 
   ngOnInit(){
@@ -34,6 +36,11 @@ export class AddCategoryComponent {
     this.service.postCategory(formdata).subscribe(
       (res) =>{
         console.log(res);
+        if(res.id!=null){
+          this.message.success("Category Posted Successfully", {nzDuration: 5000});
+        } else if (res.id == null){
+          this.message.error("Something went wrong", {nzDuration: 5000})
+        }
       }
     )
   }
