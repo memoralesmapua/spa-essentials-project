@@ -46,6 +46,32 @@ public class AdminServiceImpl implements AdminService{
         return categoryRepository.findAllByNameContaining(title).stream().map(Category::getCategoryDto).collect(Collectors.toList());
     }
 
+    @Override
+    public boolean deleteCategory(Long categoryId) {
+        Optional<Category> optionalCategory = categoryRepository.findById(categoryId);
+        if (optionalCategory.isPresent()) {
+            categoryRepository.deleteById(categoryId);
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public CategoryDto updateCategory(Long categoryId, CategoryDto categoryDto) throws IOException {
+        Optional<Category> optionalCategory = categoryRepository.findById(categoryId);
+        if (optionalCategory.isPresent()) {
+            Category category = optionalCategory.get();
+            category.setName(categoryDto.getName());
+            category.setDescription(categoryDto.getDescription());
+            if (categoryDto.getImg() != null) {
+                category.setImg(categoryDto.getImg().getBytes());
+            }
+            Category updatedCategory = categoryRepository.save(category);
+            return updatedCategory.getCategoryDto();
+        }
+        return null;
+    }
+
     //Product operations
 
     @Override

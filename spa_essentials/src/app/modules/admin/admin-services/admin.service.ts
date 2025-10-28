@@ -33,6 +33,20 @@ export class AdminService {
     })
   }
 
+  deleteCategory(categoryId: number):Observable<any>{
+    return this.http.delete<[]>(BASIC_URL + `api/admin/category/${categoryId}`,
+      {
+        headers:this.createAuthorizationHeader()
+    })
+  }
+
+  updateCategory(categoryId: number, categoryDto: any):Observable<any>{
+    return this.http.put<[]>(BASIC_URL + `api/admin/category/${categoryId}`, categoryDto,
+      {
+        headers:this.createAuthorizationHeader()
+    })
+  }
+
   // Product Operations
 
   postProduct(categoryId: number, productDto: any):Observable<any>{
@@ -56,5 +70,6 @@ export class AdminService {
       "Authorization", "Bearer " + StorageService.getToken()
     );
   }
+
 
 }

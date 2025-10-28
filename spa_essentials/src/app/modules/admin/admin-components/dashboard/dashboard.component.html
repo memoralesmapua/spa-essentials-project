@@ -27,7 +27,8 @@
                         routerLink="/admin/{{category.id}}/products">View Products</button>
                     <button style="margin-left: 10px;" nzSize="small" nz-button nzType="primary"
                         routerLink="/admin/{{category.id}}/product">Post Product</button>-->
-                    
+                    <button nzSize="small" nz-button nzType="default" (click)="showUpdateModal(category)">Update</button>
+                    <button style="margin-left: 10px;" nzSize="small" nz-button nzDanger nzType="primary" (click)="deleteCategory(category.id)">Delete</button>
                 </div>
             </div>
         
@@ -36,3 +37,24 @@
     </div>
 
 </div>
+
+<!-- Update Modal -->
+<nz-modal [(nzVisible)]="isUpdateModalVisible" nzTitle="Update Category" (nzOnCancel)="handleUpdateCancel()" (nzOnOk)="handleUpdateOk()">
+  <div *nzModalContent>
+    <form nz-form [formGroup]="updateForm">
+      <nz-form-item>
+        <nz-form-label>Name</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="name" placeholder="Category Name" />
+        </nz-form-control>
+      </nz-form-item>
+      
+      <nz-form-item>
+        <nz-form-label>Description</nz-form-label>
+        <nz-form-control>
+          <textarea nz-input formControlName="description" placeholder="Category Description" rows="4"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </div>
+</nz-modal>

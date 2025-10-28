@@ -43,6 +43,24 @@ public class AdminController {
         return ResponseEntity.ok(categoryDtoList);
     }
 
+    @DeleteMapping("/category/{categoryId}")
+    public ResponseEntity<?> deleteCategory(@PathVariable Long categoryId){
+        boolean deleted = adminService.deleteCategory(categoryId);
+        if (deleted) {
+            return ResponseEntity.ok(null);
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    @PutMapping("/category/{categoryId}")
+    public ResponseEntity<?> updateCategory(@PathVariable Long categoryId, @ModelAttribute CategoryDto categoryDto) throws IOException {
+        CategoryDto updatedCategory = adminService.updateCategory(categoryId, categoryDto);
+        if (updatedCategory == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(updatedCategory);
+    }
+
     // Product Operations
 
     @PostMapping("/{categoryId}/product")

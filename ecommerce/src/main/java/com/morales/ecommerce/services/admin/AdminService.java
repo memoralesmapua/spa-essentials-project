@@ -13,6 +13,10 @@ public interface AdminService {
 
     List<CategoryDto> getAllCategoriesByTitle(String title);
 
+    boolean deleteCategory(Long categoryId);
+
+    CategoryDto updateCategory(Long categoryId, CategoryDto categoryDto) throws IOException;
+
     ProductDto postProduct(Long categoryId, ProductDto productDto) throws IOException;
 
     List<ProductDto> getAllProductsByCategory(Long categoryId);
