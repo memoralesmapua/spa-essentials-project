@@ -30,6 +30,7 @@ public class AdminServiceImpl implements AdminService{
         category.setName(categoryDto.getName());
         category.setDescription(categoryDto.getDescription());
         category.setImg(categoryDto.getImg().getBytes());
+        category.setPrice(categoryDto.getPrice());
         Category createdCategory = categoryRepository.save(category);
         CategoryDto createdCategoryDto = new CategoryDto();
         createdCategoryDto.setId(createdCategory.getId());
@@ -63,6 +64,7 @@ public class AdminServiceImpl implements AdminService{
             Category category = optionalCategory.get();
             category.setName(categoryDto.getName());
             category.setDescription(categoryDto.getDescription());
+            category.setPrice(categoryDto.getPrice());
             if (categoryDto.getImg() != null) {
                 category.setImg(categoryDto.getImg().getBytes());
             }

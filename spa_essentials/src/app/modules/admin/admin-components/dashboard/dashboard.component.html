@@ -22,6 +22,8 @@
                 <hr>
                 <h5>Description: <b>{{category.description}}</b></h5>
                 <hr>
+                <h5>Price: <b>{{category.price | currency}}</b></h5>
+                <hr>
                 <div style="float: right;">
                     <!--<button nzSize="small" nz-button nzType="primary"
                         routerLink="/admin/{{category.id}}/products">View Products</button>
@@ -53,6 +55,13 @@
         <nz-form-label>Description</nz-form-label>
         <nz-form-control>
           <textarea nz-input formControlName="description" placeholder="Category Description" rows="4"></textarea>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-form-item>
+        <nz-form-label>Price</nz-form-label>
+        <nz-form-control>
+          <input nz-input type="number" min="0" step="0.01" formControlName="price" placeholder="Price" />
         </nz-form-control>
       </nz-form-item>
     </form>

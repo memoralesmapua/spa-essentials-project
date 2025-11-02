@@ -33,6 +33,14 @@
                         </nz-form-control>
                     </nz-form-item>
                 </div>
+
+                <div nz-col nzSpan="24">
+                    <nz-form-item>
+                        <nz-form-control nzHasFeedback [nzXs]="24" nzErrorTip="This Input is Required!">
+                            <input nz-input type="number" min="0" step="0.01" placeholder="Price" formControlName="price"/>
+                        </nz-form-control>
+                    </nz-form-item>
+                </div>
             </div>
 
             <button nz-button class="login-form-button login-form-margin" [nzType] ="'primary'" 

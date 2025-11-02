@@ -32,7 +32,8 @@ export class DashboardComponent {
     
     this.updateForm = this.fb.group({
       name: [null, [Validators.required]],
-      description: [null, [Validators.required]]
+      description: [null, [Validators.required]],
+      price: [null, [Validators.required]]
     });
     
     this.getAllCategories();
@@ -79,7 +80,8 @@ export class DashboardComponent {
     this.selectedCategory = category;
     this.updateForm.patchValue({
       name: category.name,
-      description: category.description
+      description: category.description,
+      price: category.price
     });
     this.isUpdateModalVisible = true;
   }
@@ -94,11 +96,23 @@ export class DashboardComponent {
       const formData = new FormData();
       formData.append('name', this.updateForm.get('name')?.value);
       formData.append('description', this.updateForm.get('description')?.value);
-      
+      formData.append('price', this.updateForm.get('price')?.value);
+
       this.adminService.updateCategory(this.selectedCategory.id, formData).subscribe(
-        () => {
+        (updated: any) => {
+          // Update locally so price reflects immediately
+          const idx = this.categories.findIndex((c: any) => c.id === this.selectedCategory.id);
+          if (idx > -1) {
+            this.categories[idx] = {
+              ...this.categories[idx],
+              name: updated.name,
+              description: updated.description,
+              price: updated.price,
+              returnedImg: updated.returnedImg,
+              processedImg: 'data:image/jpeg;base64,' + updated.returnedImg
+            };
+          }
           this.isUpdateModalVisible = false;
-          this.getAllCategories();
           this.selectedCategory = null;
         }
       );

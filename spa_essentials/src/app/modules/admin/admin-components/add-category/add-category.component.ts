@@ -24,6 +24,7 @@ export class AddCategoryComponent {
     this.categoryForm = this.fb.group({
       name:[null,Validators.required],
       description:[null,Validators.required],
+      price:[null,Validators.required],
     })
   }
 
@@ -33,6 +34,7 @@ export class AddCategoryComponent {
     formdata.append("img", this.selectedFile);
     formdata.append("name", this.categoryForm.get("name").value)
     formdata.append("description", this.categoryForm.get("description").value)
+    formdata.append("price", this.categoryForm.get("price").value)
     this.service.postCategory(formdata).subscribe(
       (res) =>{
         console.log(res);
