@@ -22,7 +22,7 @@
                 <hr>
                 <h5>Description: <b>{{category.description}}</b></h5>
                 <hr>
-                <h5>Price: <b>{{category.price | currency}}</b></h5>
+                <h5>Price: <b>{{ category.price | currency:'PHP':'symbol' }}</b></h5>
                 <hr>
                 <div style="float: right;">
                     <!--<button nzSize="small" nz-button nzType="primary"

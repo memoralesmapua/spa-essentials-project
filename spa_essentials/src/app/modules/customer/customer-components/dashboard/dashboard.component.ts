@@ -90,7 +90,8 @@ export class DashboardComponent {
 
   checkout(): void {
     const total = this.cartService.total();
-    alert(`Purchase successful! Total: $${total.toFixed(2)}`);
+    const formatted = new Intl.NumberFormat('en-PH', { style: 'currency', currency: 'PHP' }).format(total);
+    alert(`Purchase successful! Total: ${formatted}`);
     this.cartService.clear();
     this.refreshCart();
   }
